@@ -1,0 +1,68 @@
+﻿@model ExchangeRates.Models.Root
+
+<div class="container p-3">
+    <div class="row p-4">
+        <div class="col-13">
+            <h2 class="text-primary">Aktualnie obowiązująca tabela typu A kursów średnich walut obcych</h2>
+        </div>
+    </div>
+    <br />
+
+    @if (Model != null)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Typ tabeli</th>
+                    <th>Numer</th>
+                    <th>Data ostatniej aktualizacji tabeli</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="30%">@Model.Table</td>
+                    <td width="30%">@Model.No</td>
+                    <td width="30%">@Model.EffectiveDate.ToShortDateString()</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr align="center">
+                    <th>
+                        Waluta
+                    </th>
+                    <th>
+                        Symbol
+                    </th>
+                    <th>
+                        Średni Kurs
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Rates != null)
+                {
+                    @foreach (var item in Model.Rates)
+                    {
+                        <tr>
+                            <td width="30%">@item.Currency</td>
+                            <td width="30%">@item.Code</td>
+                            <td width="30%" align="right">@item.Mid</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <p>Nie znaleziono aktualnych kursów walut</p>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Nie znaleziono aktualnych kursów walut</p>
+    }
+
+</div>
